@@ -130,8 +130,9 @@ input,select{font-family:inherit}
 .qcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 18px;box-shadow:var(--shadow)}
 .qtype{display:inline-block;font-size:11px;color:var(--ac2);border:1px solid var(--ac);border-radius:6px;padding:1px 8px;margin-bottom:12px;letter-spacing:.1em}
 .qtext{font-size:17px;font-weight:500;margin-bottom:18px;white-space:pre-wrap;word-break:break-word}
+#qOpts{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
 .opt{display:flex;gap:12px;align-items:flex-start;background:var(--bg2);border:1.5px solid var(--line);
-  border-radius:var(--radius);padding:13px 14px;margin-bottom:10px;transition:.15s;text-align:left;width:100%}
+  border-radius:var(--radius);padding:13px 14px;margin-bottom:0;transition:.15s;text-align:left;width:100%}
 .opt:active{transform:scale(.985)}
 .opt .ol{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--tx3);display:flex;align-items:center;
   justify-content:center;font-size:13px;flex-shrink:0;margin-top:1px;transition:.15s}
@@ -13381,7 +13382,8 @@ function nextQ(){
   var cur=Quiz.ans[Quiz.i]||[];
   var hasPick=cur.length&&cur[0]!==-1;
   var isJudged=Quiz.judged&&Quiz.judged[Quiz.i];
-  if(hasPick&&!isJudged&&!Quiz.opt.recite){
+  if(Quiz.mode==='exam'){ if(!hasPick){ document.getElementById('qFb').className='feedback show bad'; document.getElementById('qFb').textContent='请先作答本题'; return; } }
+  else if(hasPick&&!isJudged&&!Quiz.opt.recite){
     document.getElementById('qFb').className='feedback show bad';
     document.getElementById('qFb').textContent='请先提交答案（点击确认）';
     return;
